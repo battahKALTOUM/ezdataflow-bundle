@@ -43,7 +43,6 @@
     "require": {
         "php": "^7.1",
         "code-rhapsodie/dataflow-bundle": "^2.1 || dev-master",
-        "ezsystems/ezplatform-admin-ui": "^1.0",
         "ezsystems/ezpublish-kernel": "^7.0"
     },
     "require-dev": {
