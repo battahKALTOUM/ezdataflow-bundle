@@ -1,5 +1,5 @@
 {
-    "name": "code-rhapsodie/ezdataflow-bundle",
+    "name": "code-kabat/ezdataflow-bundle",
     "description": "Import/export bundle for eZ Platform based on Code-Rhapsodie Dataflow",
     "type": "symfony-bundle",
     "keywords": ["dataflow", "import", "export", "data processing", "ez publish", "ez platform"],
