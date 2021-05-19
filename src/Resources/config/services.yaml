@@ -4,6 +4,8 @@ imports:
 services:
     _defaults:
         public: false
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true
 
     coderhapsodie.dataflow.connection: "@ezpublish.persistence.connection"
 
@@ -13,6 +15,8 @@ services:
             $jobGateway: '@CodeRhapsodie\EzDataflowBundle\Gateway\JobGateway'
             $notificationHandler: '@EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface'
             $scheduledDataflowGateway: '@CodeRhapsodie\EzDataflowBundle\Gateway\ScheduledDataflowGateway'
+        calls:
+            - [setContainer, ['@service_container']]
 
     CodeRhapsodie\EzDataflowBundle\Controller\ScheduledDataflowController:
         public: true
@@ -21,6 +25,8 @@ services:
             $notificationHandler: '@EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface'
             $scheduledDataflowGateway: '@CodeRhapsodie\EzDataflowBundle\Gateway\ScheduledDataflowGateway'
             $translator: '@translator'
+        calls:
+            - [ setContainer, [ '@service_container' ]]
 
     CodeRhapsodie\EzDataflowBundle\Controller\JobController:
         public: true
@@ -28,6 +34,8 @@ services:
             $jobGateway: '@CodeRhapsodie\EzDataflowBundle\Gateway\JobGateway'
             $notificationHandler: '@EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface'
             $translator: '@translator'
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
 
     CodeRhapsodie\EzDataflowBundle\Writer\RepositoryWriter:
         abstract: true
