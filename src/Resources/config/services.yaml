@@ -114,19 +114,19 @@ services:
         parent: EzSystems\EzPlatformAdminUi\Tab\AbstractTab
         public: false
         tags:
-            - {name: ezplatform.tab, group: coderhapsodie-ezdataflow}
+            - {name: ezplatform.tab, group: coderhapsodie-ezdataflow }
 
     CodeRhapsodie\EzDataflowBundle\Tab\OneshotTab:
         parent: EzSystems\EzPlatformAdminUi\Tab\AbstractTab
         public: false
         tags:
-            - {name: ezplatform.tab, group: coderhapsodie-ezdataflow}
+            - {name: ezplatform.tab, group: coderhapsodie-ezdataflow }
 
     CodeRhapsodie\EzDataflowBundle\Tab\HistoryTab:
         parent: EzSystems\EzPlatformAdminUi\Tab\AbstractTab
         public: false
         tags:
-            - {name: ezplatform.tab, group: coderhapsodie-ezdataflow}
+            - {name: ezplatform.tab, group: coderhapsodie-ezdataflow }
 
     CodeRhapsodie\EzDataflowBundle\Filter\NotModifiedContentFilter:
         arguments:

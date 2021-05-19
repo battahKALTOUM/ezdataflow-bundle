@@ -16,6 +16,7 @@ use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
 use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
 use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Pagerfanta\Pagerfanta;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,7 +33,15 @@ class DashboardController extends Controller
     /** @var ScheduledDataflowGateway */
     private $scheduledDataflowGateway;
 
-    public function __construct(JobGateway $jobGateway, NotificationHandlerInterface $notificationHandler, ScheduledDataflowGateway $scheduledDataflowGateway)
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    public function __construct(JobGateway $jobGateway,
+                                NotificationHandlerInterface $notificationHandler,
+                                ScheduledDataflowGateway $scheduledDataflowGateway
+                                )
     {
         $this->jobGateway = $jobGateway;
         $this->notificationHandler = $notificationHandler;
@@ -51,7 +60,30 @@ class DashboardController extends Controller
         return $this->render('@ezdesign/ezdataflow/Dashboard/main.html.twig');
     }
 
-    public function repeating(Request $request): Response
+    /*public function repeating(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted(new Attribute('ezdataflow', 'view'));
+
+        $newWorkflow = new ScheduledDataflow();
+        $newWorkflow->setNext((new \DateTimeImmutable())->add(new \DateInterval('PT1H')));
+        $form = $this->createForm(CreateScheduledType::class, $newWorkflow, [
+            'action' => $this->generateUrl('coderhapsodie.ezdataflow.workflow.create'),
+        ]);
+
+        return $this->render('@ezdesign/ezdataflow/Dashboard/repeating.html.twig', [
+            'pager' => $this->getPager($this->scheduledDataflowGateway->getListQueryForAdmin(), $request),
+            'form' => $form->createView(),
+        ]);
+    }*/
+
+    /**
+     * @Route("/repeating", name="coderhapsodie.ezdataflow.repeating")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getRepeatingPage(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('ezdataflow', 'view'));
 
@@ -67,23 +99,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/repeating", name="coderhapsodie.ezdataflow.repeating")
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function getRepeatingPage(Request $request): Response
-    {
-        $this->denyAccessUnlessGranted(new Attribute('ezdataflow', 'view'));
-
-        return $this->render('@ezdesign/ezdataflow/Dashboard/repeating.html.twig', [
-            'pager' => $this->getPager($this->scheduledDataflowGateway->getListQueryForAdmin(), $request),
-        ]);
-    }
-
-    public function oneshot(Request $request): Response
+    /*public function oneshot(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('ezdataflow', 'view'));
 
@@ -97,7 +113,7 @@ class DashboardController extends Controller
             'pager' => $this->getPager($this->jobGateway->getOneshotListQueryForAdmin(), $request),
             'form' => $form->createView(),
         ]);
-    }
+    }*/
 
     /**
      * @Route("/oneshot", name="coderhapsodie.ezdataflow.oneshot")
@@ -110,8 +126,15 @@ class DashboardController extends Controller
     {
         $this->denyAccessUnlessGranted(new Attribute('ezdataflow', 'view'));
 
+        $newOneshotJob = new Job();
+        $newOneshotJob->setRequestedDate((new \DateTime())->add(new \DateInterval('PT1H')));
+        $form = $this->createForm(CreateOneshotType::class, $newOneshotJob, [
+            'action' => $this->generateUrl('coderhapsodie.ezdataflow.job.create'),
+        ]);
+
         return $this->render('@ezdesign/ezdataflow/Dashboard/oneshot.html.twig', [
             'pager' => $this->getPager($this->jobGateway->getOneshotListQueryForAdmin(), $request),
+            'form' => $form->createView(),
         ]);
     }
 

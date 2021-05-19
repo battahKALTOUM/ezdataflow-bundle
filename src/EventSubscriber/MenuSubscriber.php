@@ -26,7 +26,6 @@ class MenuSubscriber implements EventSubscriberInterface
         if (!isset($menu[MainMenuBuilder::ITEM_ADMIN])) {
             return;
         }
-
         $menu[MainMenuBuilder::ITEM_ADMIN]->addChild(
             'ezdataflow_dashboard',
             [

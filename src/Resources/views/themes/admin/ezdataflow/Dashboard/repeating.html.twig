@@ -1,3 +1,20 @@
+  {% extends "@ezdesign/ui/layout.html.twig" %}
+
+{% block breadcrumbs %}
+    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
+        { value: 'coderhapsodie.ezdataflow'|trans|desc('EzDataflow') }
+    ]} %}
+{% endblock %}
+
+{% block page_title %}
+    {% include '@ezdesign/ui/page_title.html.twig' with {
+        title: 'coderhapsodie.ezdataflow'|trans|desc('EzDataflow'),
+        iconName: 'workflow'
+    } %}
+{% endblock %}
+
+{% block content %}
 <h2>{{ 'coderhapsodie.ezdataflow.repeating.title'|trans }}</h2>
 
 <div class="ez-table-header">
@@ -136,7 +153,6 @@
                         });
                     });
                 });
-
                 $('#ez-modal--edit-scheduled').on('submit', 'form', function (e) {
                     e.preventDefault();
                     url = $(this).attr('action');
@@ -182,3 +198,4 @@
         })(jQuery);
     </script>
 {% endif %}
+{% endblock %}

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\DataCollectorTranslator;
 
 /**
  * @Route("/ezdataflow/scheduled_workflow")
@@ -29,10 +29,10 @@ class ScheduledDataflowController extends Controller
     private $notificationHandler;
     /** @var ScheduledDataflowGateway */
     private $scheduledDataflowGateway;
-    /** @var TranslatorInterface */
+    /** @var DataCollectorTranslator */
     private $translator;
 
-    public function __construct(JobGateway $jobGateway, NotificationHandlerInterface $notificationHandler, ScheduledDataflowGateway $scheduledDataflowGateway, TranslatorInterface $translator)
+    public function __construct(JobGateway $jobGateway, NotificationHandlerInterface $notificationHandler, ScheduledDataflowGateway $scheduledDataflowGateway, DataCollectorTranslator $translator)
     {
         $this->jobGateway = $jobGateway;
         $this->notificationHandler = $notificationHandler;

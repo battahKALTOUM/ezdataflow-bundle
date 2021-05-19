@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\DataCollectorTranslator;
 
 /**
  * @Route("/ezdataflow/job")
@@ -26,13 +26,13 @@ class JobController extends Controller
     private $jobGateway;
     /** @var NotificationHandlerInterface */
     private $notificationHandler;
-    /** @var TranslatorInterface */
+    /** @var DataCollectorTranslator */
     private $translator;
 
     public function __construct(
         JobGateway $jobGateway,
         NotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator
+        DataCollectorTranslator $translator
     ) {
         $this->jobGateway = $jobGateway;
         $this->notificationHandler = $notificationHandler;
